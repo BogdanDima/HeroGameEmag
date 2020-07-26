@@ -31,7 +31,7 @@ class ComposerStaticInit977b8ed7b75ebb4fae67b98e48383206
         ),
         'H' => 
         array (
-            'Hero\\' => 5,
+            'HeroGame\\' => 5,
         ),
         'D' => 
         array (
@@ -59,7 +59,7 @@ class ComposerStaticInit977b8ed7b75ebb4fae67b98e48383206
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
         ),
-        'Hero\\' => 
+        'HeroGame\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

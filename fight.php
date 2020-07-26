@@ -1,30 +1,31 @@
 <?php
+use HeroGame\PlayerFactory, HeroGame\BattleAction;
 
-use Hero\Stats, Hero\Action, Hero\PlayerAction;
+echo "Creating Characters...<br><br>";
+$factory = new PlayerFactory();
 
-$stats = new Stats();
-$action = new Action();
-$orderusAction = new PlayerAction();
+$beast = $factory->CreatePlayer("beast", "CEL.ro(Beast)");
+echo $beast->showStats();
+$hero = $factory->CreatePlayer("hero", "EMAG(Hero)");
+echo $hero->showStats();
 
-$orderus = $stats->setStats($stats->orderus);
-$beast = $stats->setStats($stats->beast);
+list($attacker, $defender) = BattleAction::chooseAttackerAndDefender($beast, $hero);
 
-$players = $action->chooseFirstAttacker($orderus, $beast, "Orderus", "Beast");
-
-$stats->checkStats($players);
-
-while( $players["attacker"][1]["health"] > 0 && $players["defender"][1]["health"] > 0){
-
-    if($players["attacker"][0] == "Orderus") $players["defender"][1]["health"] = $orderusAction->PlayerSpecialSkill($players, "attack");
-    else $players["defender"][1]["health"] = $orderusAction->PlayerSpecialSkill($players, "defend");
+while( true )
+{
+    $attacker->attack($defender);
     
-    $stats->checkStats($players);
+    if( $defender->getHealth() <= 0 ) 
+    {
+     
+        echo "<br>".$attacker->getName()." has won the fight!";
+        break;
+    }
 
-    $players = $action->switchAttacker($players);
+    echo "============================================================<br><br>";
+
+    list($attacker, $defender) = BattleAction::switchAttacker($attacker, $defender);
 }
-echo "<br><br>";
 
-if($players["attacker"][1]["health"] <= 0 && $players["defender"][1]["health"] > 0 ) echo "<b>".$players["defender"][0]." WINS!<b>";
-else if($players["defender"][1]["health"] <= 0 && $players["attacker"][1]["health"] > 0 ) echo "<b>".$players["defender"][0]." WINS!<b>";
 
 ?>
