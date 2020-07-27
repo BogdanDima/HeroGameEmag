@@ -71,13 +71,14 @@ class Player{
 
 		echo $this->getName()." attacks ".$defender->getName()." with ".$damage." DMG<br>";
 
-        if( $damage <= 0 ) $damage = 0;
-        else{
-            if( $defender->getType() == "beast" ) $damage = $this->RapidStrike($damage);
-            else $damage = $defender->MagicShield($damage);
+        if( $defender->getType() == "beast" ){
+            if( $this->RapidStrike() && $this->defend($defender) ) $defender->setHealth($defender->getHealth() - $damage);
+            if( $this->defend($defender) ) $defender->setHealth($defender->getHealth() - $damage);
+        }else {
+            $damage = $defender->MagicShield($damage);
+            if( $this->defend($defender) ) $defender->setHealth($defender->getHealth() - $damage);
         }
 
-		if( $this->defend($defender) ) $defender->setHealth($def_health - $damage);
         echo $defender->getName()." HP: ".$defender->getHealth()."<br><br>";
 
     }
@@ -92,7 +93,7 @@ class Player{
         }
         else 
         {
-            echo $this->getName()." attack hit!<br>";
+            echo $this->getName()." attack hit!<br><br>";
             return true;
         }
     }
