@@ -31,13 +31,8 @@ class HeroTest extends TestCase{
     //RapidStrike makes the Hero attack twice (same chances apply for defense on each attack but cannot attack more than twice)
     public function testRapidStrike($a, $expected)
     {
-        $skill_chance = rand(0, 100);
         $this->attacker->setChance($a, "rapidStrikeChance");
-        if( $skill_chance <= $a ){
-
-            $this->assertEquals($this->attacker->RapidStrike(), $expected);
-            
-        } else $this->assertEquals($this->attacker->RapidStrike(), $expected);;
+        $this->assertEquals($this->attacker->RapidStrike(), $expected);
     }
 
     public function magicShieldProvider()
@@ -55,13 +50,8 @@ class HeroTest extends TestCase{
     //MagicShield absorbs half of the damage taken by the Hero
     public function testMagicShield($a, $expected){
 
-        $skill_chance = rand(0, 100);
         $this->defender->setChance($a, "magicShieldChance");
-        
-        if( $skill_chance <= $a ){
-
-            $this->assertEquals($this->defender->MagicShield($this->damage), $expected);
-        } else $this->assertEquals($this->defender->MagicShield($this->damage), $expected);
+        $this->assertEquals($this->defender->MagicShield($this->damage), $expected);
     }
 
     
